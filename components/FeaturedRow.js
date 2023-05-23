@@ -1,9 +1,27 @@
 import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import RestaurantCard from "./RestaurantCard";
+import { client } from "../sanity";
 
 const FeaturedRow = ({ title, description, id }) => {
+	const [restaurants, setrestaurants] = useState([]);
+	useEffect(() => {
+		client
+			.fetch(
+				`*[_type == "featured" && _id == ${id}]{
+			...,
+			restaurants[]->{
+				...,
+				dishes[]->
+			}
+		}`
+			)
+			.then((data) => setrestaurants(data?.restaurants));
+	}, []);
+
+	console.log(restaurants);
+
 	return (
 		<View>
 			<View className='mt-4 flex-row items-center justify-between px-4'>

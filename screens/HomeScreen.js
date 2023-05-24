@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeaturedRow";
-import { client } from "../sanity";
+import client from "../sanity";
 
 const HomeScreen = () => {
 	const [featuredCategories, setFeaturedCategories] = useState([]);
@@ -41,7 +41,7 @@ const HomeScreen = () => {
 	// console.log(featuredCategories);
 	return (
 		<SafeAreaView
-			className='bg-white pt-5'
+			className=' pt-5'
 			style={{ marginTop: StatusBar.currentHeight || 0 }}>
 			{/* <Text className='text-red-500'>HomeScreen</Text> */}
 			{/* Header */}
@@ -73,7 +73,7 @@ const HomeScreen = () => {
 				<Feather name='sliders' size={20} color='#00ccbb' />
 			</View>
 			{/* body */}
-			<ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+			<ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
 				{/* Category */}
 				<Categories />
 				{/* Featured  */}

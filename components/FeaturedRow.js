@@ -2,25 +2,27 @@ import { View, Text, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import RestaurantCard from "./RestaurantCard";
-import { client } from "../sanity";
+import client from "../sanity";
 
 const FeaturedRow = ({ title, description, id }) => {
 	const [restaurants, setrestaurants] = useState([]);
 	useEffect(() => {
 		client
 			.fetch(
-				`*[_type == "featured" && _id == ${id}]{
+				`*[_type == "featured" && _id == $id]{
 			...,
 			restaurants[]->{
 				...,
-				dishes[]->
+				dishes[]->,
+				type->{
+					name
+				}
 			}
-		}`
+		}[0]`,
+				{ id }
 			)
 			.then((data) => setrestaurants(data?.restaurants));
 	}, []);
-
-	console.log(restaurants);
 
 	return (
 		<View>
@@ -34,42 +36,21 @@ const FeaturedRow = ({ title, description, id }) => {
 				contentContainerStyle={{ paddingHorizontal: 15 }}
 				showsHorizontalScrollIndicator={false}
 				className='pt-4'>
-				<RestaurantCard
-					id={123}
-					imgUrl='http://links.papareact.com/gn7'
-					title='Yoi Sushi'
-					rating={4.5}
-					genre='Japanese'
-					address='123 Main Street'
-					short_description='This is a short description'
-					dishes={[]}
-					long={20}
-					lagt={0}
-				/>
-				<RestaurantCard
-					id={123}
-					imgUrl='http://links.papareact.com/gn7'
-					title='Yoi Sushi'
-					rating={4.5}
-					genre='Japanese'
-					address='123 Main Street'
-					short_description='This is a short description'
-					dishes={[]}
-					long={20}
-					lagt={0}
-				/>
-				<RestaurantCard
-					id={123}
-					imgUrl='http://links.papareact.com/gn7'
-					title='Yoi Sushi'
-					rating={4.5}
-					genre='Japanese'
-					address='123 Main Street'
-					short_description='This is a short description'
-					dishes={[]}
-					long={20}
-					lagt={0}
-				/>
+				{restaurants.map((restaurants) => (
+					<RestaurantCard
+						key={restaurants._id}
+						id={restaurants._id}
+						imgUrl={restaurants.image}
+						title={restaurants.name}
+						rating={restaurants.rating}
+						genre={restaurants.type?.name}
+						address={restaurants.address}
+						short_description={restaurants.short_description}
+						dishes={restaurants.dishes}
+						long={restaurants.long}
+						lagt={restaurants.lat}
+					/>
+				))}
 			</ScrollView>
 		</View>
 	);

@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Feather, EvilIcons } from "@expo/vector-icons";
+import { urlFor } from "../sanity";
+import { useNavigation } from "@react-navigation/native";
 
 const RestaurantCard = ({
 	id,
@@ -14,15 +16,31 @@ const RestaurantCard = ({
 	long,
 	lat,
 }) => {
+	const navigation = useNavigation();
 	return (
-		<TouchableOpacity className='bg-white mr-3 drop-shadow-lg'>
+		<TouchableOpacity
+			onPress={() => {
+				navigation.navigate("Restaurant", {
+					id,
+					imgUrl,
+					title,
+					rating,
+					genre,
+					address,
+					short_description,
+					dishes,
+					long,
+					lat,
+				});
+			}}
+			className='bg-white mr-3 drop-shadow-lg'>
 			<Image
 				source={{
-					uri: imgUrl,
+					uri: urlFor(imgUrl).url(),
 				}}
 				className='h-64 w-64 rounde-sm'
 			/>
-			<View className='px-3 pb-4'>
+			<View className='px-3 pb-2'>
 				<Text className='font-bold text-lg pt-2'>{title}</Text>
 			</View>
 			<View className='flex-row items-center space-x-1'>
@@ -31,7 +49,7 @@ const RestaurantCard = ({
 					<Text className='text-green-400'>{rating}</Text> . {genre}
 				</Text>
 			</View>
-			<View className='flex-row items-center space-x-1'>
+			<View className='flex-row items-center space-x-1 mb-1'>
 				<EvilIcons name='location' color={"gray"} size={22} />
 				<Text>Nearby . {address}</Text>
 			</View>

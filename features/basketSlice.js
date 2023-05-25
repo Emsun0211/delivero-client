@@ -23,11 +23,15 @@ export const basketSlice = createSlice({
 			}
 			state.items = newBasket;
 		},
+		// emptyBasket: (state, action) => {
+		// 	state.items = [];
+		// },
 	},
 });
 
 // Action creators are generated for each case reducer function/for the dispatch
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, emptyBasket } =
+	basketSlice.actions;
 
 export const selectBasketItemWithId = (state, id) =>
 	state.basket.items.filter((item) => item.id === id);

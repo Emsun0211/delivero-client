@@ -15,6 +15,7 @@ import {
 	removeFromBasket,
 	selectBasketItem,
 	selectBasketTotal,
+	emptyBasket,
 } from "../features/basketSlice";
 import { FontAwesome } from "@expo/vector-icons";
 import { urlFor } from "../sanity";

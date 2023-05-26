@@ -10,6 +10,8 @@ import { store } from "./store";
 import BasketScreen from "./screens/BasketScreen";
 import PreparingOrderScreen from "./screens/PreparingOrderScreen";
 import DeliveryScreen from "./screens/DeliveryScreen";
+import Flutterwaves from "./screens/FlutterwavesScreen";
+import FlutterwavesScreen from "./screens/FlutterwavesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,11 @@ export default function App() {
 					<Stack.Screen
 						name='Basket'
 						component={BasketScreen}
+						options={{ presentation: "modal", headerShown: false }}
+					/>
+					<Stack.Screen
+						name='Flutterwaves'
+						component={FlutterwavesScreen}
 						options={{ presentation: "modal", headerShown: false }}
 					/>
 				</Stack.Navigator>

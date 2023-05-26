@@ -39,10 +39,12 @@ const DeliveryScreen = () => {
 			setIsLoading(true);
 		})();
 	}, []);
-	// const handleNavigat = () => {
-	// 	dispatch(emptyBasket);
-	// 	navigation.navigate("Home");
-	// };
+	const handleNavigat = () => {
+		dispatch(emptyBasket());
+		navigation.navigate("Home");
+	};
+	// const arr = [2, 3];
+	// console.log(arr * 2);
 
 	return (
 		<View
@@ -50,7 +52,7 @@ const DeliveryScreen = () => {
 			className='bg-[#00ccbb] flex-1'>
 			<SafeAreaView className='z-50'>
 				<View className='flex-row justify-between items-center p-5'>
-					<TouchableOpacity onPress={() => navigation.navigate("Home")}>
+					<TouchableOpacity onPress={handleNavigat}>
 						<FontAwesome name='times' color={"#ffffff"} size={30} />
 					</TouchableOpacity>
 					<Text className='font-light text-white text-lg'>Order Help</Text>

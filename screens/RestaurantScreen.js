@@ -6,12 +6,13 @@ import { Feather, EvilIcons, AntDesign } from "@expo/vector-icons";
 import DishRow from "../components/DishRow";
 import BasketIcon from "../components/BasketIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { setRestaurant } from "../features/restaurantSlice";
-import { selectBasketItem } from "../features/basketSlice";
+import { setRestaurant, selectRestaurant } from "../features/restaurantSlice";
+import { emptyBasket, selectBasketItem } from "../features/basketSlice";
 
 const RestaurantScreen = ({}) => {
 	const dispatch = useDispatch();
 	const items = useSelector(selectBasketItem);
+	const restaurant = useSelector(selectRestaurant);
 	const {
 		params: {
 			id,
@@ -42,6 +43,12 @@ const RestaurantScreen = ({}) => {
 			})
 		);
 	}, []);
+
+	useEffect(() => {
+		if (items.length > 0 && restaurant.id !== id) {
+			dispatch(emptyBasket());
+		}
+	});
 
 	const navigation = useNavigation();
 	useLayoutEffect(() => {

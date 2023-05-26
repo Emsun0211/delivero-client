@@ -23,9 +23,11 @@ export const basketSlice = createSlice({
 			}
 			state.items = newBasket;
 		},
-		// emptyBasket: (state, action) => {
-		// 	state.items = [];
-		// },
+		emptyBasket: (state, action) => {
+			while (state.items.length > 0) {
+				state.items.pop();
+			}
+		},
 	},
 });
 
